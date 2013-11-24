@@ -1,0 +1,211 @@
+-- 合作商信息
+CREATE TABLE IF NOT EXISTS  `qinzi_ parters ` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `company` varchar(100) NOT NULL comment"公司名称",
+  `type` chat(1) not null comment "公司类型",
+  `address` varchar(100) default NULL comment"公司地址",
+  `postcode` char(6) default null comment"邮编",
+  `contact`varchar(20) default null comment "联系人",
+  `mobile` varchar(20) default null comment "联系电话",
+  `iphone` varchar(100) default null comment "其他联系电话",
+  `disable` chat(1) default "0" comment "是否删除",
+  PRIMARY KEY  (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment "合作商信息" ;
+
+-- 试用产品
+CREATE TABLE IF NOT EXISTS  `qinzi_products` (
+  `pid` int(11) unsigned NOT NULL auto_increment,
+  `parter_id` int(11) unsigned NOT NULL default 0 comment "合作商id",
+  `title` varchar(120) NOT NULL comment "标题",
+  `content` text comment "产品详细信息",
+  `pic` varchar(100) default null comment "产品logo",
+  `totype` tinyint(2) unsigned not null default 0 comment "参与对象",
+  `area` varchar(50) default null comment "申请区域",
+  `posttype` tinyint(1) unsigned not null default 0 comment "配送方式",
+    `used_cnt` smallint(8) unsigned not null default 0 comment "已用商品输",
+    `remain_cnt` smallint(8) unsigned not null default 0 comment "剩余商品数",
+   `b_cnt` int(11) unsigned not null default 0 comment "报名人数",
+   `b_stattime` date default null comment "报名开始时间",
+   `b_endtime` date default null comment "报名截止日期",
+   `bg_stattime` date default null comment "报告提交开始时间",
+   `bg_endtime` date default null comment "报告提交截止日期",
+  `createtime` int(11) unsigned NOT NULLdefault 0 comment "添加时间" ,
+  PRIMARY KEY  (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment "试用产品";
+
+-- 试用申请名单
+CREATE TABLE IF NOT EXISTS  `qinzi_product_applies` (
+ `ppid` int(11) unsigned NOT NULL auto_increment,
+  `pid` int(11) unsigned NOT NULL default 0 comment "商品id",
+  `uid` int(11) unsigned NOT NULL default 0 comment "用户id",
+  `isbg`  tinyinf(1) default 0 comment "是否已提交报告", 
+   `des` varchar(300) default null comment "申请宣言",
+  `state` tinyinf(1) default 0 comment "是否审核",
+  `createtime` int(11) unsigned not null default 0 comment "申请时间",
+ PRIMARY KEY  (`ppid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment "试用申请名单  ";
+
+-- 试用申请报告
+CREATE TABLE IF NOT EXISTS  `qinzi_product_reports` (
+ `prid` int(11) unsigned NOT NULL auto_increment,
+  `pid` int(11) unsigned NOT NULL default 0 comment "商品id",
+  `uid` int(11) unsigned NOT NULL default 0 comment "用户id",
+   `title` varchar(100)  not null default null comment "标题",
+  `des` varchar(200) not null default null comment "报告简要",
+   `info` text default null comment "报告内容",
+   `state` tinyinf(1) default 0 comment "是否删除",
+  `createtime` int(11) unsigned not null default 0 comment "提交时间",
+ PRIMARY KEY  (`prid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment "试用申请报告  ";
+
+
+-- 活动
+CREATE TABLE IF NOT EXISTS  `qinzi_activities` (
+  `aid` int(11) unsigned NOT NULL auto_increment,
+  `title` varchar(120) NOT NULL comment "标题",
+  `content` text comment "产品详细信息",
+  `pic` varchar(100) default null comment "产品logo",
+  `totype` tinyint(2) unsigned not null default 0 comment "年龄断",
+   `province_id` int(11) unsigned NOT NULL default 0 comment "省份id",
+  `city_id` varchar(50) default null comment "城市id",
+  `type` tinyint(1) unsigned not null default 0 comment "活动类型",
+   `isfree` tinyint(1) unsigned not null default 0 comment "是否免费",
+    `used_cnt` smallint(8) unsigned not null default 0 comment "已用名额",
+    `remain_cnt` smallint(8) unsigned not null default 0 comment "剩余名额",
+   `b_cnt` int(11) unsigned not null default 0 comment "报名人数",
+   `b_stattime` date default null comment "报名开始时间",
+   `b_endtime` date default null comment "报名截止日期",
+  `createtime` int(11) unsigned NOT NULLdefault 0 comment "添加时间" ,
+  PRIMARY KEY  (`aid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment "活动";
+
+-- 活动报名名单
+CREATE TABLE IF NOT EXISTS  `qinzi_activitiy_orders` (
+  `aoid` int(11) unsigned NOT NULL auto_increment,
+  `aid` int(11) unsigned NOT NULL default 0 comment "活动id",
+  `uid` int(11) unsigned NOT NULL default 0 comment "用户id",
+  `isbg` tinyinf(1) default 0 comment "是否已提交报告", 
+   `state` tinyinf(1) default 0 comment "状态",
+  `createtime` int(11) unsigned NOT NULLdefault 0 comment "添加时间" ,
+  PRIMARY KEY  (`aoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 活动报名名单 ";
+
+-- 活动图片
+CREATE TABLE IF NOT EXISTS  `qinzi_activitiy_pictrues` (
+  `apid` int(11) unsigned NOT NULL auto_increment,
+  `aid` int(11) unsigned NOT NULL default 0 comment "活动id",
+    `name` varchar(50) comment '图片名称',
+   `pic` varchar(100) comment "图片",
+  `createtime` int(11) unsigned NOT NULLdefault 0 comment "添加时间" ,
+  PRIMARY KEY  (`apid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 活动图片 ";
+
+
+-- 活动评论
+CREATE TABLE IF NOT EXISTS  `qinzi_activitiy_comments` (
+  `acid` int(11) unsigned NOT NULL auto_increment,
+  `aid` int(11) unsigned NOT NULL default 0 comment "活动id",
+  `uid` int(11) unsigned NOT NULL default 0 comment "用户id",
+   `content` varchar(50) comment '评论内容',
+   `parentid` unsigned NOT NULL default 0 comment "父id",
+  `createtime` int(11) unsigned NOT NULLdefault 0 comment "添加时间" ,
+  PRIMARY KEY  (`acid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 活动评论 ";
+
+
+-- 用户信息
+CREATE TABLE IF NOT EXISTS  `qinzi_users` (
+  `uid` int(11) unsigned NOT NULL auto_increment,
+  `nick` varchar(50) NOT NULL  comment "用户昵称",
+  `pwd` varchar(64)  NOT NULL comment "登陆密码",
+  `gender` enum('男','女') comment '性别',
+  `avatar` varchar(100) default null comment "头像",
+  `email` varchar(100) default null comment "邮箱",
+  `realname` varchar(20) default null comment "真实姓名",
+  `mobile` varchar(15) default null comment "手机号",
+  `address` varchar(100) default null comment "地址",
+  `postcode` varchar(6) default null comment "邮编",
+
+  `baby_type` tinyint(1) default 0 comment"宝宝状态",
+  `baby_name` varchar(50) default null comment "宝宝姓名",
+  `baby_birth` date comment "宝宝生日",
+  `baby_sex` enum('男','女') comment "宝宝性别",
+  `status`  tinyint(1) default 0 comment "用户状态",
+  `jifen` int(11) NOT NULL default 0 comment "积分" ,
+  `regtime` int(11) unsigned NOT NULL default 0 comment "添加时间" ,
+  PRIMARY KEY  (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 用户信息 ";
+
+-- 用户sns关联信息
+CREATE TABLE IF NOT EXISTS  `qinzi_user_sns` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) unsigned NOT NULL default 0 comment '用户id',
+  `sns_site` varchar(10) not null default '' comment"space, sina",
+  `sns_uid` varchar(64) not null comment "sns用户id",
+  `sns_name` varchar(20) not null  comment "sns用户昵称",
+  `sns_token` varchar(100) comment "sns握手token",
+  `sns_secret` varchar(100) comment "sns续期验证token",
+  `sns_expires` smallint(10) comment "sns有效时长",
+  `uptime` int(11) unsigned NOT NULL default 0 comment "更新时间" ,
+  PRIMARY KEY  (`id`),
+  unique Key `uid_site`(`uid`,`sns_site`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 用户sns关联信息 ";
+
+-- 用户好友
+CREATE TABLE IF NOT EXISTS  `qinzi_user_friends` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) unsigned NOT NULL default 0 comment "用户id",
+  `fid` int(11) unsigned NOT NULL default 0 comment "好友id",
+  `state`  tinyint(1) default 0 comment "状态",
+  `regtime` int(11) unsigned NOT NULLdefault 0 comment "添加时间" ,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 用户好友";
+
+
+-- 用户消息
+CREATE TABLE IF NOT EXISTS  `qinzi_user_messages` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) unsigned NOT NULL default 0 comment "用户id",
+  `touid` int(11) unsigned NOT NULL default 0 comment "发送到的用户id",
+   `content` varchar(300) comment "内容",
+  `state`  tinyint(1) default 0 comment "状态",
+  `tostate`  tinyint(1) default 0 comment "状态",
+  `regtime` int(11) unsigned NOT NULLdefault 0 comment "发送时间" ,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 comment " 用户消息";
+
+-- 积分规则
+CREATE TABLE IF NOT EXISTS `qinzi_rules` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT null comment '规则名称',
+  `ename` varchar(30) DEFAULT null comment '规则简写(字母)',
+  `type` enum('+','-')  comment '类型',
+  `score` smallint(10) unsigned NOT NULL DEFAULT 0 comment'积分',
+  `desc` varchar(100) DEFAULT null comment'规则描述',
+  `limit_count` smallint(10) unsigned NOT NULL DEFAULT 0 comment'限制次数',
+  `limit_time` smallint(10) unsigned NOT NULL DEFAULT 0 comment'限制时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ename`(`ename`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 comment'积分规则';
+-- 积分记录
+CREATE TABLE IF NOT EXISTS `qinzi_rule_record` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT 0 comment '用户id',
+  `ename` varchar(30) DEFAULT null comment '规则简写(字母)',
+  `pre_score` int(10) unsigned NOT NULL DEFAULT 0 comment'操作之前积分总和',
+  `score` smallint(10) NOT NULL DEFAULT 0 comment'积分',
+  `info` varchar(100) default null comment '积分简介',
+  `createtime` int(11) unsigned NOT NULL DEFAULT 0 comment'记录时间',
+  PRIMARY KEY (`id`),
+  KEY `uid_ename`(`uid`,`ename`,`createtime`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 comment'积分记录';
+
+CREATE TABLE IF NOT EXISTS `qinzi_manager` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_name` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `pwd` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `lastlogin_time` int(11) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
